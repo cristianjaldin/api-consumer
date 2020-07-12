@@ -28,19 +28,33 @@ public class ScheduledTasks {
 
 	@Autowired
 	private UserService userService;
-	
-	@Scheduled(fixedRate = 5000)
+
+	// @Scheduled(fixedRate = 5000)
 	public void getUserFromTheService() {
 		log.info("get Users From The Service with SDK {}", dateFormat.format(new Date()));
 		List<UserDto> users = userSdk.findAll();
 		users.forEach(user -> log.info(user.toString()));
 	}
 
+	// @Scheduled(fixedRate = 5000)
+	public void getUserByIdFromTheService() {
+		log.info("get User by id From The Service with SDK {}", dateFormat.format(new Date()));
+		UserDto user = userSdk.get("5f0213b863993b271b08a54b");
+		log.info(user.toString());
+	}
+
 	@Scheduled(fixedRate = 5000)
+	public void deleteUsersFromTheService() {
+		log.info("delete Users From The Service with SDK {}", dateFormat.format(new Date()));
+		List<UserDto> users = userSdk.findAll();
+		users.forEach(user -> userSdk.delete(user.getId()));
+	}
+
+	// @Scheduled(fixedRate = 5000)
 	public void uploadUsersToTheService() {
 		log.info("upload Users To The Service with SDK {}", dateFormat.format(new Date()));
 		List<User> users = userService.getUsers();
-		
+
 		for (User user : users) {
 			UserCreateDto userCreateDto = new UserCreateDto();
 			userCreateDto.setName(user.getName());
