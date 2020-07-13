@@ -32,7 +32,7 @@ public class ScheduledTasks {
 	// @Scheduled(fixedRate = 5000)
 	public void getUserFromTheService() {
 		log.info("get Users From The Service with SDK {}", dateFormat.format(new Date()));
-		List<UserDto> users = userSdk.findAll();
+		List<UserDto> users = userSdk.getAll();
 		users.forEach(user -> log.info(user.toString()));
 	}
 
@@ -46,7 +46,7 @@ public class ScheduledTasks {
 	@Scheduled(fixedRate = 5000)
 	public void deleteUsersFromTheService() {
 		log.info("delete Users From The Service with SDK {}", dateFormat.format(new Date()));
-		List<UserDto> users = userSdk.findAll();
+		List<UserDto> users = userSdk.getAll();
 		users.forEach(user -> userSdk.delete(user.getId()));
 	}
 
